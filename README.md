@@ -47,6 +47,54 @@ These are design goals, rather than measured performance or cost-saving claims.
 
 ## Project scope
 
-This repository is a public project overview. It contains documentation only; it does not distribute the application, deployment configuration, credentials, internal records, or user data.
+This repository contains the sanitized application source, tests, synthetic demonstration fixtures, and example configuration. Credentials, private configuration, local caches, and internal records are excluded.
 
 The project includes demonstration and simulation workflows. Production deployment would require environment-specific integration, security review, and operational validation. Approval workflows for password resets and folder access should not be read as a claim that every downstream enterprise action is implemented.
+
+## Run the local demonstration
+
+Use Python 3.11 or later. The default configuration uses an in-memory directory, in-memory Redis, and the deterministic fallback parser; no external AI service or enterprise credentials are needed.
+
+```sh
+python -m venv .venv
+# Windows PowerShell: .\.venv\Scripts\Activate.ps1
+# macOS/Linux: source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+Open `http://127.0.0.1:8000/admin` for the operations dashboard or `http://127.0.0.1:8000/user` for the employee portal. Use only the included synthetic accounts and sample tickets. Read [SECURITY.md](SECURITY.md) before running the application.
+
+The optional Next.js frontend is in `frontend/`:
+
+```sh
+cd frontend
+npm install
+npm run dev -- --hostname 127.0.0.1
+```
+
+Its API URL defaults to `http://localhost:8000`. An optional local `frontend/.env.local` can set `NEXT_PUBLIC_API_URL` to another local API address. Never put secrets in `NEXT_PUBLIC_` variables.
+
+## Tests and scripted demonstration
+
+```sh
+python -m pytest -q
+python run_demo.py
+```
+
+Both use mock services and a fresh runtime-generated supervisor token. Sample identities, ticket histories, and traces are synthetic demonstration material.
+
+## Optional configuration
+
+Copy `.env.example` to `.env` and set only the values needed locally. To load it when starting the API, add `--env-file .env` to the Uvicorn command above. Generate a fresh supervisor token locally if you need the token-protected API endpoints; there is no default token.
+
+The Docker Compose file is an optional isolated directory/Redis simulation. It requires locally supplied values for `LDAP_BIND_PASSWORD`, `LDAP_CONFIG_PASSWORD`, `LDAP_READONLY_USER_PASSWORD`, `REDIS_PASSWORD`, and `SUPERVISOR_API_KEY`. Its published ports bind to loopback. Run `docker compose up --build` only after configuring those values. The optional Claude provider also needs the `anthropic` Python package, a valid API key, and a model available to your account.
+
+## Source layout
+
+- `app/`: API, ticket triage, diagnostic playbooks, directory integration, audit logic, and built-in HTML interfaces.
+- `config/`: environment-based settings and synthetic directory fixtures.
+- `frontend/`: Next.js interface and client-side demonstration data.
+- `tests/`: parser, schema, policy, directory, and API tests.
+
+Private configuration and generated files are excluded by `.gitignore`. Keep all real credentials and user data outside this repository.

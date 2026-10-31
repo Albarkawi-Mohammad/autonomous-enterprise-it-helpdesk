@@ -1,0 +1,48 @@
+# Credentials and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+credentials*.json
+secrets/
+.aws/
+.ssh/
+
+# Python environments, caches, coverage and runtime data
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage*
+htmlcov/
+*.log
+*.db
+*.sqlite*
+logs/
+uploads/
+data/
+audit*.json*
+
+# Frontend dependencies and generated output
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+
+# Local tooling and operating-system metadata
+.agents/
+.codex/
+.taste-skill/
+.ui-craft/
+.publication-tools/
+public-source/
+public-overview/
+.DS_Store
+Thumbs.db
+*MacBook*

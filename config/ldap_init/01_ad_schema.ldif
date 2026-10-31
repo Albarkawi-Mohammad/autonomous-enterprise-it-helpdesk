@@ -1,0 +1,35 @@
+# Active Directory Simulation Schema for OpenLDAP
+# Defines sAMAccountName, userAccountControl, lockoutTime, and memberOf
+dn: cn=ad-schema,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: ad-schema
+olcAttributeTypes: ( 1.2.840.113556.1.4.221
+  NAME 'sAMAccountName'
+  DESC 'Active Directory SAM Account Name'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+  SINGLE-VALUE )
+olcAttributeTypes: ( 1.2.840.113556.1.4.8
+  NAME 'userAccountControl'
+  DESC 'Active Directory User Account Control Flags'
+  EQUALITY integerMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE )
+olcAttributeTypes: ( 1.2.840.113556.1.4.52
+  NAME 'lockoutTime'
+  DESC 'Active Directory Account Lockout Timestamp (0=unlocked)'
+  EQUALITY caseIgnoreMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{64}
+  SINGLE-VALUE )
+olcAttributeTypes: ( 1.2.840.113556.1.4.60
+  NAME 'memberOf'
+  DESC 'Active Directory Group Memberships DN'
+  EQUALITY distinguishedNameMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 )
+olcObjectClasses: ( 1.2.840.113556.1.5.9
+  NAME 'adAccount'
+  DESC 'Active Directory User Account Auxiliary Class'
+  SUP top
+  AUXILIARY
+  MAY ( sAMAccountName $ userAccountControl $ lockoutTime $ memberOf ) )

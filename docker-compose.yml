@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  # OpenLDAP pre-configured with Active Directory schema simulation
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: enterprise_ad_ldap
+    environment:
+      LDAP_ORGANISATION: "Example Organization"
+      LDAP_DOMAIN: "corp.example.test"
+      LDAP_BASE_DN: "dc=corp,dc=example,dc=test"
+      LDAP_ADMIN_PASSWORD: "${LDAP_BIND_PASSWORD:?Set LDAP_BIND_PASSWORD in your local .env}"
+      LDAP_CONFIG_PASSWORD: "${LDAP_CONFIG_PASSWORD:?Set LDAP_CONFIG_PASSWORD in your local .env}"
+      LDAP_READONLY_USER: "true"
+      LDAP_READONLY_USER_USERNAME: "helpdesk_svc"
+      LDAP_READONLY_USER_PASSWORD: "${LDAP_READONLY_USER_PASSWORD:?Set LDAP_READONLY_USER_PASSWORD in your local .env}"
+      LDAP_RFC2307BIS_SCHEMA: "true"
+    volumes:
+      - ./config/ldap_init/01_ad_schema.ldif:/container/service/slapd/assets/config/bootstrap/schema/custom/01_ad_schema.ldif:ro
+      - ./config/ldap_init/02_initial_data.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/02_initial_data.ldif:ro
+    ports:
+      - "127.0.0.1:389:389"
+      - "127.0.0.1:636:636"
+    networks:
+      - triage_net
+    healthcheck:
+      test: ["CMD", "ldapsearch", "-x", "-H", "ldap://localhost", "-b", "dc=corp,dc=example,dc=test", "-s", "base"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for idempotency deduplication, distributed lock, and HITL supervisor queues
+  redis:
+    image: redis:7-alpine
+    container_name: enterprise_triage_redis
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:?Set REDIS_PASSWORD in your local .env}", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - triage_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:?Set REDIS_PASSWORD in your local .env}", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Ollama local inference container (optional AI backend)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: enterprise_triage_ollama
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    networks:
+      - triage_net
+    restart: unless-stopped
+
+  # Autonomous Enterprise IT Helpdesk & Triage Engine (FastAPI)
+  triage-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: autonomous_triage_engine
+    environment:
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - LDAP_MOCK_MODE=false
+      - REDIS_MOCK_MODE=false
+      - LDAP_SERVER_URI=ldap://openldap:389
+      - LDAP_BIND_DN=cn=admin,dc=corp,dc=example,dc=test
+      - LDAP_BIND_PASSWORD=${LDAP_BIND_PASSWORD:?Set LDAP_BIND_PASSWORD in your local .env}
+      - LDAP_BASE_DN=dc=corp,dc=example,dc=test
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?Set REDIS_PASSWORD in your local .env}
+      - AI_PROVIDER=fallback # 'ollama' | 'claude' | 'fallback'
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=mistral:latest
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - SUPERVISOR_API_KEY=${SUPERVISOR_API_KEY:?Set SUPERVISOR_API_KEY in your local .env}
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      openldap:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - triage_net
+    restart: on-failure
+
+networks:
+  triage_net:
+    driver: bridge
+
+volumes:
+  redis_data:
+  ollama_models:

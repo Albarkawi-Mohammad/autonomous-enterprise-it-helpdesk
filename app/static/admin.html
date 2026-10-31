@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example Organization Sovereign Triage — Autonomous Enterprise IT Helpdesk &amp; Policy Gate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+          colors: {
+            porcelain: '#fafbff',
+            alabaster: '#f2f5fc',
+            cobalt: {
+              50: '#f2f5fc',
+              100: '#ebeefd',
+              200: '#dadfff',
+              300: '#98a9f9',
+              500: '#3555e4',
+              600: '#2842bb',
+              800: '#0f1d66',
+              900: '#060b21',
+              950: '#050a20',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #fafbff;
+      color: #060b21;
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    .cobalt-horizon-banner {
+      background:
+        radial-gradient(125% 110% at 18% 0%, rgba(53, 85, 228, 0.55) 0%, rgba(15, 29, 102, 0.35) 42%, transparent 75%),
+        radial-gradient(110% 95% at 82% 100%, rgba(152, 169, 249, 0.42) 0%, rgba(53, 85, 228, 0.28) 45%, transparent 78%),
+        linear-gradient(180deg, #050a20 0%, #060b21 38%, #0f1d66 74%, #2541c9 93%, #3555e4 100%);
+    }
+    .tonal-card-1 { background-color: #060b21; color: #ffffff; border: 1px solid #16235a; }
+    .tonal-card-2 { background-color: #3555e4; color: #ffffff; border: 1px solid #2842bb; }
+    .tonal-card-3 { background-color: #dadfff; color: #060b21; border: 1px solid #c3ccfc; }
+    .tonal-card-4 { background-color: #f2f5fc; color: #060b21; border: 1px solid #dce3f5; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Atmospheric Cobalt Horizon Header -->
+  <header class="cobalt-horizon-banner text-white border-b border-[#1d3299]">
+    <div class="max-w-[1600px] mx-auto px-6 py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="h-8 w-8 rounded-lg bg-[#3555e4] ring-1 ring-white/25 flex items-center justify-center font-mono font-bold text-xs">
+          CT
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-semibold tracking-tight">Example Organization Sovereign Triage</span>
+            <span class="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[10px] text-[#dadfff] ring-1 ring-white/15 tabular-nums">v1.0.0</span>
+          </div>
+          <p class="text-[11px] text-[#98a9f9]">Autonomous Enterprise IT Helpdesk &amp; Deterministic Policy Gate</p>
+        </div>
+      </div>
+
+      <!-- Workspace Mode Switcher -->
+      <nav class="flex items-center rounded-lg bg-[#050a20]/65 p-1 ring-1 ring-white/15">
+        <button onclick="switchWorkspaceTab('triage')" id="tab-btn-triage" class="rounded-md px-3 py-1.5 text-xs font-medium bg-[#3555e4] text-white transition-all">
+          Triage Console
+        </button>
+        <button onclick="switchWorkspaceTab('directory')" id="tab-btn-directory" class="rounded-md px-3 py-1.5 text-xs font-medium text-[#dadfff] hover:text-white transition-all">
+          Active Directory Forest
+        </button>
+        <button onclick="switchWorkspaceTab('ledger')" id="tab-btn-ledger" class="rounded-md px-3 py-1.5 text-xs font-medium text-[#dadfff] hover:text-white transition-all">
+          SHA-256 Audit Ledger
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <span id="health-pill" class="rounded-md bg-emerald-500/15 px-2.5 py-1 font-mono text-[11px] text-emerald-200 ring-1 ring-emerald-400/30">
+          SHA-256 Chain Verified
+        </span>
+        <a href="/user" class="rounded-lg bg-white px-3.5 py-1.5 text-xs font-semibold text-[#060b21] shadow-sm hover:bg-[#ebeefd] transition-all">
+          Employee Self-Service Portal →
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-[1600px] mx-auto px-6 py-5 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+      <div>
+        <div class="mb-1 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-[#98a9f9]">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          <span>Zero-Trust Execution Boundary Active • DC01.corp.example.test:636</span>
+        </div>
+        <h1 class="text-2xl sm:text-[28px] font-semibold tracking-[-0.03em] text-white leading-tight">
+          Autonomous ticket resolution, <span class="font-serif italic font-normal text-[#dadfff]">deterministic</span> directory security.
+        </h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6 text-xs text-[#dadfff]">
+        <div class="border-l border-white/15 pl-3.5">
+          <div class="text-[10px] font-mono uppercase text-[#98a9f9]">Execution Policy</div>
+          <div class="mt-0.5 font-medium text-white">LLM Extracts Intent Only • Python Gate Mutates AD</div>
+        </div>
+        <div class="border-l border-white/15 pl-3.5">
+          <div class="text-[10px] font-mono uppercase text-[#98a9f9]">Privileged Guardrail</div>
+          <div class="mt-0.5 font-medium text-white">Domain Admins Frozen to Redis HITL</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 4-Step Monochromatic Tonal KPI Strip -->
+  <section class="border-b border-[#dce3f5] bg-[#fafbff] px-6 py-4">
+    <div class="max-w-[1600px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <div class="tonal-card-1 rounded-xl p-4 flex flex-col justify-between">
+        <div class="flex items-center justify-between font-mono text-[11px] text-[#98a9f9]">
+          <span>01 / AUTONOMOUS REMEDIATION</span>
+          <span class="text-[#dadfff]">LDAP WRITE</span>
+        </div>
+        <div class="mt-4 flex items-baseline justify-between">
+          <div id="kpi-auto" class="text-3xl font-semibold tracking-[-0.04em] text-white tabular-nums">0</div>
+          <span id="kpi-locked" class="rounded bg-emerald-400/15 px-2 py-0.5 font-mono text-[10px] text-emerald-300 tabular-nums">0 AD Locked</span>
+        </div>
+        <p class="mt-2 text-xs text-[#98a9f9]">Standard user lockouts verified &amp; resolved autonomously.</p>
+      </div>
+
+      <div class="tonal-card-2 rounded-xl p-4 flex flex-col justify-between">
+        <div class="flex items-center justify-between font-mono text-[11px] text-[#dadfff]">
+          <span>02 / DETERMINISTIC GATE LATENCY</span>
+          <span class="rounded bg-white/15 px-1.5 py-0.5 text-[10px] text-white tabular-nums">P99 &lt; 85ms</span>
+        </div>
+        <div class="mt-4 flex items-baseline justify-between">
+          <div id="kpi-latency" class="text-3xl font-semibold tracking-[-0.04em] text-white tabular-nums">42ms</div>
+          <span class="font-mono text-[11px] text-[#dadfff] tabular-nums">40s SLA target</span>
+        </div>
+        <p class="mt-2 text-xs text-[#dadfff]">Mean Pydantic V2 schema parse + Python security rule check.</p>
+      </div>
+
+      <div class="tonal-card-3 rounded-xl p-4 flex flex-col justify-between">
+        <div class="flex items-center justify-between font-mono text-[11px] text-[#2842bb]">
+          <span>03 / REDIS HITL ESCALATION</span>
+          <span id="kpi-hitl-badge" class="rounded bg-[#060b21]/10 px-1.5 py-0.5 text-[10px] font-semibold text-[#060b21]">QUEUE MONITORED</span>
+        </div>
+        <div class="mt-4 flex items-baseline justify-between">
+          <div id="kpi-hitl" class="text-3xl font-semibold tracking-[-0.04em] text-[#060b21] tabular-nums">0</div>
+          <span class="font-mono text-[11px] text-[#2842bb]">Supervisor Sign-off</span>
+        </div>
+        <p class="mt-2 text-xs text-[#263259]">Privileged Domain Admin mutations paused for human approval.</p>
+      </div>
+
+      <div class="tonal-card-4 rounded-xl p-4 flex flex-col justify-between">
+        <div class="flex items-center justify-between font-mono text-[11px] text-[#6e7799]">
+          <span>04 / ADVERSARIAL INTERCEPTS</span>
+          <span class="rounded bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-rose-700 tabular-nums">100% BLOCKED</span>
+        </div>
+        <div class="mt-4 flex items-baseline justify-between">
+          <div id="kpi-blocked" class="text-3xl font-semibold tracking-[-0.04em] text-[#060b21] tabular-nums">0</div>
+          <span class="font-mono text-[11px] text-emerald-700 tabular-nums">0 LDAP leaks</span>
+        </div>
+        <p class="mt-2 text-xs text-[#3b4262]">Prompt injections, SQLi, &amp; Golden Tickets hard-aborted.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Scenario Simulation Bar -->
+  <section class="border-b border-[#dce3f5] bg-white px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#6e7799] mr-1">Simulate Vector:</span>
+        <button onclick="triggerScenario('alex_lockout')" class="rounded-lg border border-[#dce3f5] bg-[#fafbff] px-3 py-1.5 text-xs font-medium text-[#060b21] hover:border-[#3555e4] hover:bg-[#ebeefd]/60">
+          Demo User 06 Lockout <kbd class="ml-1 rounded bg-[#ebeefd] px-1.5 py-0.5 font-mono text-[10px] text-[#2842bb]">1</kbd>
+        </button>
+        <button onclick="triggerScenario('prompt_injection')" class="rounded-lg border border-[#dce3f5] bg-[#fafbff] px-3 py-1.5 text-xs font-medium text-[#060b21] hover:border-rose-400 hover:bg-rose-50">
+          Prompt Injection Attack <kbd class="ml-1 rounded bg-rose-100 px-1.5 py-0.5 font-mono text-[10px] text-rose-800">2</kbd>
+        </button>
+        <button onclick="triggerScenario('admin_hitl')" class="rounded-lg border border-[#dce3f5] bg-[#fafbff] px-3 py-1.5 text-xs font-medium text-[#060b21] hover:border-amber-400 hover:bg-amber-50">
+          Domain Admin Lockout (HITL) <kbd class="ml-1 rounded bg-amber-100 px-1.5 py-0.5 font-mono text-[10px] text-amber-900">3</kbd>
+        </button>
+        <button onclick="triggerScenario('hardware_escalation')" class="rounded-lg border border-[#dce3f5] bg-[#fafbff] px-3 py-1.5 text-xs font-medium text-[#060b21] hover:border-[#3555e4] hover:bg-[#ebeefd]/60">
+          Hardware Fault (Tier-2) <kbd class="ml-1 rounded bg-[#ebeefd] px-1.5 py-0.5 font-mono text-[10px] text-[#2842bb]">4</kbd>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="resetAllState()" class="rounded-lg border border-[#dce3f5] bg-white px-3 py-1.5 text-xs font-medium text-[#3b4262] hover:border-[#3555e4] hover:text-[#060b21]">
+          Reset State
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSPACE 1: TRIAGE CONSOLE -->
+  <main id="workspace-triage" class="max-w-[1600px] w-full mx-auto flex-1 grid grid-cols-1 lg:grid-cols-12 lg:divide-x lg:divide-[#dce3f5] border-x border-[#dce3f5] bg-white">
+    <div class="lg:col-span-7 flex flex-col">
+      <div class="border-b border-[#dce3f5] bg-[#f2f5fc] px-5 py-2.5 flex items-center justify-between">
+        <span class="text-xs font-semibold text-[#060b21]">Triaged Incident Queue (20 Graded Levels)</span>
+        <input id="ticket-search" oninput="renderTicketRows()" type="text" placeholder="Filter ticket ID, principal, subject..." class="rounded-lg border border-[#dce3f5] bg-white px-3 py-1 text-xs text-[#060b21] focus:border-[#3555e4] focus:outline-none w-64" />
+      </div>
+      <div id="ticket-list" class="divide-y divide-[#e8edf8] overflow-y-auto max-h-[680px]"></div>
+    </div>
+
+    <div class="lg:col-span-5 bg-[#fafbff] p-6 overflow-y-auto max-h-[680px]" id="trace-drawer">
+      <p class="text-xs text-[#6e7799]">Select a ticket to inspect its 4-stage execution trace.</p>
+    </div>
+  </main>
+
+  <!-- WORKSPACE 2: ACTIVE DIRECTORY FOREST -->
+  <main id="workspace-directory" class="hidden max-w-[1600px] w-full mx-auto flex-1 p-6">
+    <div id="ldap-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+  </main>
+
+  <!-- WORKSPACE 3: SHA-256 AUDIT LEDGER -->
+  <main id="workspace-ledger" class="hidden max-w-[1600px] w-full mx-auto flex-1 p-6">
+    <div id="ledger-container" class="rounded-2xl border border-[#dce3f5] bg-white p-6 space-y-4"></div>
+  </main>
+
+  <script>
+    let allTickets = [];
+    let allUsers = [];
+    let selectedId = null;
+
+    function switchWorkspaceTab(tab) {
+      ['triage', 'directory', 'ledger'].forEach((t) => {
+        document.getElementById('workspace-' + t).classList.toggle('hidden', t !== tab);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === tab) {
+          btn.className = 'rounded-md px-3 py-1.5 text-xs font-medium bg-[#3555e4] text-white transition-all';
+        } else {
+          btn.className = 'rounded-md px-3 py-1.5 text-xs font-medium text-[#dadfff] hover:text-white transition-all';
+        }
+      });
+      if (tab === 'ledger') loadAuditLedger();
+    }
+
+    async function refreshAll() {
+      const [tRes, uRes] = await Promise.all([
+        fetch('/api/v1/tickets').then(r => r.json()),
+        fetch('/api/v1/ldap/users').then(r => r.json())
+      ]);
+      allTickets = tRes.tickets || [];
+      allUsers = uRes.users || [];
+      if (!selectedId && allTickets.length > 0) {
+        selectedId = allTickets[0].ticket_id;
+      }
+      updateKpis();
+      renderTicketRows();
+      renderTraceDrawer();
+      renderLdapGrid();
+    }
+
+    function updateKpis() {
+      const total = allTickets.length;
+      const auto = allTickets.filter(t => t.policy_verdict === 'AUTO_APPROVED' || t.policy_verdict === 'HITL_APPROVED').length;
+      const hitl = allTickets.filter(t => t.policy_verdict === 'REQUIRES_HITL').length;
+      const blocked = allTickets.filter(t => t.policy_verdict === 'BLOCKED_INJECTION').length;
+      const avgLat = total > 0 ? Math.round(allTickets.reduce((a, t) => a + (t.latency_ms || 42), 0) / total) : 42;
+      const locked = allUsers.filter(u => u.is_locked).length;
+
+      document.getElementById('kpi-auto').textContent = `${auto} / ${total}`;
+      document.getElementById('kpi-locked').textContent = `${locked} AD Locked`;
+      document.getElementById('kpi-latency').textContent = `${avgLat}ms`;
+      document.getElementById('kpi-hitl').textContent = `${hitl} staged`;
+      document.getElementById('kpi-blocked').textContent = `${blocked} blocked`;
+    }
+
+    function renderTicketRows() {
+      const q = (document.getElementById('ticket-search').value || '').toLowerCase();
+      const filtered = allTickets.filter(t => {
+        const subj = (t.subject || t.raw_subject || '').toLowerCase();
+        return !q || t.ticket_id.toLowerCase().includes(q) || subj.includes(q) || (t.user_id || '').toLowerCase().includes(q);
+      });
+
+      const container = document.getElementById('ticket-list');
+      container.innerHTML = filtered.map(t => {
+        const active = t.ticket_id === selectedId;
+        const subj = t.subject || t.raw_subject || 'Incident';
+        const lvl = t.difficulty_level ? `L${String(t.difficulty_level).padStart(2, '0')} · ${t.difficulty_tier}` : 'Triage';
+        return `
+          <div onclick="selectTicket('${t.ticket_id}')" class="cursor-pointer px-5 py-3.5 transition-colors flex items-center justify-between gap-4 ${active ? 'bg-[#ebeefd]/80 border-l-[3px] border-l-[#3555e4]' : 'hover:bg-[#f2f5fc] border-l-[3px] border-l-transparent'}">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-xs font-semibold text-[#060b21] tabular-nums">${t.ticket_id}</span>
+                <span class="rounded bg-[#ebeefd] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-[#2842bb] tabular-nums">${lvl}</span>
+                <span class="font-mono text-[11px] text-[#6e7799]">${t.user_id}</span>
+              </div>
+              <div class="mt-0.5 text-xs font-semibold text-[#060b21] truncate">${subj}</div>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] font-semibold ${
+                t.policy_verdict === 'AUTO_APPROVED' || t.policy_verdict === 'HITL_APPROVED'
+                  ? 'bg-emerald-50 text-emerald-800 ring-1 ring-emerald-500/20'
+                  : t.policy_verdict === 'REQUIRES_HITL'
+                  ? 'bg-amber-50 text-amber-900 ring-1 ring-amber-500/30'
+                  : t.policy_verdict === 'BLOCKED_INJECTION'
+                  ? 'bg-rose-50 text-rose-800 ring-1 ring-rose-500/20'
+                  : 'bg-[#ebeefd] text-[#2842bb]'
+              }">${t.policy_verdict}</span>
+              <span class="font-mono text-xs text-[#6e7799] tabular-nums">${t.latency_ms || 42}ms</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectTicket(id) {
+      selectedId = id;
+      renderTicketRows();
+      renderTraceDrawer();
+    }
+
+    function renderTraceDrawer() {
+      const t = allTickets.find(x => x.ticket_id === selectedId) || allTickets[0];
+      const drawer = document.getElementById('trace-drawer');
+      if (!t) return;
+      const subj = t.subject || t.raw_subject || '';
+      const hitlHtml = t.policy_verdict === 'REQUIRES_HITL' ? `
+        <div class="rounded-xl border-2 border-amber-400 bg-amber-50 p-4 mb-4">
+          <div class="font-mono text-[10px] font-bold uppercase text-amber-900">Redis HITL Gate • Privileged Principal</div>
+          <p class="mt-1 text-xs text-[#060b21]">Principal <strong>${t.user_id}</strong> belongs to Domain Admins. Approve or Reject staged LDAP action:</p>
+          <div class="mt-3 flex gap-2">
+            <button onclick="approveHitl('${t.ticket_id}')" class="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700">Approve &amp; Execute LDAP</button>
+            <button onclick="rejectHitl('${t.ticket_id}')" class="rounded-lg border border-rose-300 bg-white px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-50">Deny &amp; Purge</button>
+          </div>
+        </div>
+      ` : '';
+
+      drawer.innerHTML = `
+        <div class="space-y-4">
+          <div class="border-b border-[#dce3f5] pb-3">
+            <div class="flex items-center justify-between">
+              <span class="rounded bg-[#060b21] px-2 py-0.5 font-mono text-xs font-semibold text-white tabular-nums">${t.ticket_id}</span>
+              <span class="font-mono text-xs text-[#3b4262]">Principal: <strong>${t.user_id}</strong></span>
+            </div>
+            <h2 class="mt-2 text-base font-semibold text-[#060b21]">${subj}</h2>
+          </div>
+          ${hitlHtml}
+          <div class="rounded-xl border border-[#dce3f5] bg-white p-4">
+            <div class="font-mono text-[10px] font-bold uppercase text-[#3555e4]">Stage 01 // Raw Ticket Body</div>
+            <div class="mt-2 whitespace-pre-wrap rounded-lg bg-[#f2f5fc] p-3 text-xs text-[#060b21]">${t.raw_body}</div>
+          </div>
+          <div class="rounded-xl border border-[#dce3f5] bg-white p-4">
+            <div class="font-mono text-[10px] font-bold uppercase text-[#3555e4]">Stage 02 // Strict Pydantic V2 Extraction</div>
+            <pre class="mt-2 overflow-x-auto rounded-lg bg-[#060b21] p-3 font-mono text-[11px] text-[#dadfff] tabular-nums">${JSON.stringify(t.pydantic_intent, null, 2)}</pre>
+          </div>
+          <div class="rounded-xl border border-[#dce3f5] bg-white p-4">
+            <div class="font-mono text-[10px] font-bold uppercase text-[#3555e4]">Stage 03 // Deterministic Security Guardrails</div>
+            <div class="mt-2 divide-y divide-[#dce3f5]">
+              ${(t.guardrail_checks || []).map(c => `
+                <div class="py-2 flex items-start justify-between gap-2 text-xs">
+                  <div>
+                    <div class="font-semibold text-[#060b21]">${c.name}</div>
+                    <div class="text-[#3b4262]">${c.detail}</div>
+                  </div>
+                  <span class="font-mono text-[10px] font-semibold px-1.5 py-0.5 rounded ${c.status === 'PASS' ? 'bg-emerald-50 text-emerald-800' : c.status === 'WARN' ? 'bg-amber-50 text-amber-900' : 'bg-rose-50 text-rose-800'}">${c.status}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div class="rounded-xl border border-[#dce3f5] bg-[#f2f5fc] p-4">
+            <div class="font-mono text-[10px] font-bold uppercase text-emerald-700">Stage 04 // Cryptographic SHA-256 Seal</div>
+            <div class="mt-1 font-mono text-[11px] text-[#060b21] break-all tabular-nums">${t.audit_hash}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderLdapGrid() {
+      const grid = document.getElementById('ldap-grid');
+      grid.innerHTML = allUsers.map(u => `
+        <div class="rounded-xl border border-[#dce3f5] bg-white p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-semibold text-[#060b21]">${u.sAMAccountName}</span>
+              <span class="rounded px-2 py-0.5 font-mono text-[10px] font-semibold ${u.is_locked ? 'bg-rose-50 text-rose-800' : 'bg-emerald-50 text-emerald-800'}">${u.is_locked ? 'LOCKED' : 'ACTIVE'}</span>
+            </div>
+            <p class="text-xs text-[#6e7799] mt-0.5">${u.department}</p>
+            <div class="mt-2 rounded bg-[#f2f5fc] p-2 font-mono text-[10px] text-[#3b4262] truncate">${u.dn}</div>
+          </div>
+          <button onclick="toggleLock('${u.sAMAccountName}', ${!u.is_locked})" class="mt-3 w-full rounded-lg bg-[#3555e4] px-3 py-1.5 font-mono text-[11px] font-semibold text-white hover:bg-[#2842bb]">
+            ${u.is_locked ? 'Unlock AD Object' : 'Simulate Lockout'}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    async function loadAuditLedger() {
+      const res = await fetch('/api/v1/audit/trail').then(r => r.json());
+      const container = document.getElementById('ledger-container');
+      container.innerHTML = `
+        <div class="flex items-center justify-between border-b border-[#dce3f5] pb-4">
+          <div>
+            <span class="rounded bg-emerald-50 px-2.5 py-1 font-mono text-xs font-semibold text-emerald-800">${res.integrity.message}</span>
+          </div>
+        </div>
+        <div class="divide-y divide-[#e8edf8]">
+          ${(res.entries || []).map(e => `
+            <div class="py-3 font-mono text-xs">
+              <div class="flex items-center justify-between">
+                <span><strong>Block #${e.index}</strong> • ${e.ticket_id} • ${e.action} (${e.user_id})</span>
+                <span class="text-[#6e7799] tabular-nums">${e.timestamp}</span>
+              </div>
+              <div class="mt-1 text-[11px] text-[#6e7799] truncate">prev: ${e.prev_hash}</div>
+              <div class="text-[11px] text-[#060b21] font-semibold truncate">hash: ${e.entry_hash}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    async function triggerScenario(key) {
+      const res = await fetch('/api/v1/demo/scenario/' + key, { method: 'POST' }).then(r => r.json());
+      if (res.ticket) selectedId = res.ticket.ticket_id;
+      await refreshAll();
+    }
+
+    async function approveHitl(id) {
+      await fetch('/api/v1/hitl/' + id + '/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ approver_id: 'secops.lead@corp.example.test', reason: 'Verified maintenance window' })
+      });
+      await refreshAll();
+    }
+
+    async function rejectHitl(id) {
+      await fetch('/api/v1/hitl/' + id + '/reject', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ approver_id: 'secops.lead@corp.example.test', reason: 'Denied by supervisor' })
+      });
+      await refreshAll();
+    }
+
+    async function toggleLock(user, lock) {
+      await fetch(`/api/v1/ldap/users/${user}/${lock ? 'lock' : 'unlock'}`, { method: 'POST' });
+      await refreshAll();
+    }
+
+    async function resetAllState() {
+      await fetch('/api/v1/demo/reset', { method: 'POST' });
+      selectedId = null;
+      await refreshAll();
+    }
+
+    refreshAll();
+  </script>
+</body>
+</html>

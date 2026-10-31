@@ -1,0 +1,429 @@
+# Synthetic demo directory only. No real accounts or credentials.
+# Initial Directory Tree & AD Simulation Fixture
+# Base Domain: dc=corp,dc=example,dc=test
+
+# Organizational Units
+dn: ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: Users
+
+dn: ou=Groups,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: Groups
+
+dn: ou=Workstations,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: organizationalUnit
+ou: Workstations
+
+# Security Groups
+dn: cn=Domain Admins,ou=Groups,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: groupOfNames
+cn: Domain Admins
+description: Designated administrators of the domain
+member: cn=Demo User 03,ou=Users,dc=corp,dc=example,dc=test
+
+dn: cn=Enterprise Admins,ou=Groups,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: groupOfNames
+cn: Enterprise Admins
+description: Designated administrators of the enterprise
+member: cn=Demo User 04,ou=Users,dc=corp,dc=example,dc=test
+
+dn: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: groupOfNames
+cn: Standard Users
+description: Standard unprivileged enterprise users
+member: cn=Demo User 01,ou=Users,dc=corp,dc=example,dc=test
+member: cn=Demo User 02,ou=Users,dc=corp,dc=example,dc=test
+member: cn=Demo User 05,ou=Users,dc=corp,dc=example,dc=test
+
+dn: cn=Finance Department,ou=Groups,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: groupOfNames
+cn: Finance Department
+description: Financial controllers and analysts
+member: cn=Demo User 01,ou=Users,dc=corp,dc=example,dc=test
+
+# Users
+# 1. Standard Locked Account: Demo User 01 (demo.user01)
+dn: cn=Demo User 01,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 01
+sn: Demo
+givenName: Example
+mail: demo.user01@corp.example.test
+sAMAccountName: demo.user01
+userAccountControl: 512
+lockoutTime: 133500000000000000
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+memberOf: cn=Finance Department,ou=Groups,dc=corp,dc=example,dc=test
+description: Senior Financial Analyst - Munich Office
+
+# 2. Standard Active Account: Demo User 02 (demo.user02)
+dn: cn=Demo User 02,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 02
+sn: Demo
+givenName: Example
+mail: demo.user02@corp.example.test
+sAMAccountName: demo.user02
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Marketing Campaign Specialist - Berlin Office
+
+# 3. Privileged Domain Admin Locked Account: Demo User 03 (demo.user03)
+# MUST BE BLOCKED BY THE DETERMINISTIC SECURITY LAYER 100% OF THE TIME
+dn: cn=Demo User 03,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 03
+sn: Demo
+givenName: Example
+mail: demo.user03@corp.example.test
+sAMAccountName: demo.user03
+userAccountControl: 512
+lockoutTime: 133500000000000000
+memberOf: cn=Domain Admins,ou=Groups,dc=corp,dc=example,dc=test
+description: Principal Infrastructure Architect & Domain Administrator
+
+# 4. Privileged Enterprise Admin Active Account: Demo User 04 (demo.user04)
+dn: cn=Demo User 04,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 04
+sn: Demo
+givenName: Example
+mail: demo.user04@corp.example.test
+sAMAccountName: demo.user04
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Enterprise Admins,ou=Groups,dc=corp,dc=example,dc=test
+description: Global IT Directory Services Lead
+
+# 5. Standard Active Account: Demo User 05 (demo.user05)
+dn: cn=Demo User 05,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 05
+sn: Demo
+givenName: Example
+mail: demo.user05@corp.example.test
+sAMAccountName: demo.user05
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Executive Operations Manager - Frankfurt Office
+
+# 6. Standard Locked Account: Demo User 06 (demo.user06)
+dn: cn=Demo User 06,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 06
+sn: Demo
+givenName: Example
+mail: demo.user06@corp.example.test
+sAMAccountName: demo.user06
+userAccountControl: 512
+lockoutTime: 133500000000000000
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Senior Solutions Engineer - Locked Account
+
+# 7. Standard Active Account: Demo User 07 (demo.user07)
+dn: cn=Demo User 07,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 07
+sn: Demo
+givenName: Example
+mail: demo.user07@corp.example.test
+sAMAccountName: demo.user07
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Enterprise Support Lead - Active Account
+
+# 8. Privileged Domain Admin Locked Account: Demo User 08 (demo.user08)
+dn: cn=Demo User 08,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 08
+sn: Demo
+givenName: Example
+mail: demo.user08@corp.example.test
+sAMAccountName: demo.user08
+userAccountControl: 512
+lockoutTime: 133500000000000000
+memberOf: cn=Domain Admins,ou=Groups,dc=corp,dc=example,dc=test
+description: Tier-0 Domain Controller Administrator
+
+# 9. Legacy Standard Locked Account Alias: Demo User 09 (demo.user09)
+dn: cn=Demo User 09,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 09
+sn: Demo
+givenName: Example
+mail: demo.user09@corp.example.test
+sAMAccountName: demo.user09
+userAccountControl: 512
+lockoutTime: 133500000000000000
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Senior Solutions Engineer - Locked Account
+
+# 10. Legacy Standard Active Account Alias: Demo User 10 (demo.user10)
+dn: cn=Demo User 10,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 10
+sn: Demo
+givenName: Example
+mail: demo.user10@corp.example.test
+sAMAccountName: demo.user10
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Enterprise Support Lead - Active Account
+
+# 11. Demo User 11 (demo.user11)
+dn: cn=Demo User 11,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 11
+sn: Demo
+givenName: Example
+mail: demo.user11@corp.example.test
+sAMAccountName: demo.user11
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Global Campaign Manager - Marketing, New York Office
+
+# 12. Demo User 12 (demo.user12)
+dn: cn=Demo User 12,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 12
+sn: Demo
+givenName: Example
+mail: demo.user12@corp.example.test
+sAMAccountName: demo.user12
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Junior Frontend Engineer - Engineering, London Office
+
+# 13. Demo User 13 (demo.user13)
+dn: cn=Demo User 13,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 13
+sn: Demo
+givenName: Example
+mail: demo.user13@corp.example.test
+sAMAccountName: demo.user13
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Project Coordinator - Operations, Frankfurt Office
+
+# 14. Demo User 14 (demo.user14)
+dn: cn=Demo User 14,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 14
+sn: Demo
+givenName: Example
+mail: demo.user14@corp.example.test
+sAMAccountName: demo.user14
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Senior Field Account Executive - Enterprise Sales, Chicago Office
+
+# 15. Demo User 15 (demo.user15)
+dn: cn=Demo User 15,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 15
+sn: Demo
+givenName: Example
+mail: demo.user15@corp.example.test
+sAMAccountName: demo.user15
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Senior Corporate Counsel - Legal & Compliance, New York Office
+
+# 16. Demo User 16 (demo.user16)
+dn: cn=Demo User 16,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 16
+sn: Demo
+givenName: Example
+mail: demo.user16@corp.example.test
+sAMAccountName: demo.user16
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Executive Assistant to CEO - Executive Office, London Office
+
+# 17. Demo User 17 (demo.user17)
+dn: cn=Demo User 17,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 17
+sn: Demo
+givenName: Example
+mail: demo.user17@corp.example.test
+sAMAccountName: demo.user17
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Senior Financial Controller - Finance & Treasury, Zurich Office
+
+# 18. Demo User 18 (demo.user18)
+dn: cn=Demo User 18,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 18
+sn: Demo
+givenName: Example
+mail: demo.user18@corp.example.test
+sAMAccountName: demo.user18
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Data Center & Systems Technician - Facilities IT, Frankfurt Office
+
+# 19. Demo User 19 (demo.user19)
+dn: cn=Demo User 19,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 19
+sn: Demo
+givenName: Example
+mail: demo.user19@corp.example.test
+sAMAccountName: demo.user19
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Principal Platform & Backend Engineer - Cloud Infrastructure, London Office
+
+# 20. Demo User 20 (demo.user20)
+dn: cn=Demo User 20,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 20
+sn: Demo
+givenName: Example
+mail: demo.user20@corp.example.test
+sAMAccountName: demo.user20
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Head of Regulatory Compliance - Risk & Governance, New York Office
+
+# 21. Demo User 21 (demo.user21)
+dn: cn=Demo User 21,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 21
+sn: Demo
+givenName: Example
+mail: demo.user21@corp.example.test
+sAMAccountName: demo.user21
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Site Reliability Engineer - Core Infrastructure, Frankfurt Office
+
+# 22. Demo User 22 (demo.user22)
+dn: cn=Demo User 22,ou=Users,dc=corp,dc=example,dc=test
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: adAccount
+cn: Demo User 22
+sn: Demo
+givenName: Example
+mail: demo.user22@corp.example.test
+sAMAccountName: demo.user22
+userAccountControl: 512
+lockoutTime: 0
+memberOf: cn=Standard Users,ou=Groups,dc=corp,dc=example,dc=test
+description: Global Payroll Operations Director - Corporate Finance, London Office
+
+
